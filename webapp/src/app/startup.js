@@ -20,7 +20,6 @@ ko.components.register('about-page', {
 
 ko.components.register('activity-page', { require: 'components/activity-page/activity-page' });
 ko.components.register('video-activity-page', { require: 'components/video-activity-page/video-activity-page' });
-ko.components.register('lesson-navigation-pager', { require: 'components/lesson-navigation-pager/lesson-navigation-pager' });
 ko.components.register('copyright-line', { require: 'components/copyright-line/copyright-line' });
 ko.components.register('play-activity-page', { require: 'components/play-activity-page/play-activity-page' });
 ko.components.register('playground-layout', { require: 'components/playground-layout/playground-layout' });
