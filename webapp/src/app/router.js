@@ -20,7 +20,7 @@ class Router {
         crossroads.addRoute('', (requestParams) => {
             // TODO: Remove redirection once home page is ready
             //this.currentRoute(ko.utils.extend(requestParams, { page: 'home-page' }));
-            hasher.replaceHash('lessons');
+            hasher.replaceHash('VM');
         });
 
         crossroads.addRoute('about', (requestParams) => {
