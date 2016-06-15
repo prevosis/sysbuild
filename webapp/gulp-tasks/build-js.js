@@ -30,13 +30,10 @@ const requireJsOptimizerFilesConfig = [
         name: 'app/startup',
         include: [
             'requireLib',
-            'components/nav-bar/nav-bar',
             'components/home-page/home',
             'text!components/about-page/about.html',
-            'components/lessons-page/lessons-page',
             'components/activity-page/activity-page',
             'components/video-activity-page/video-activity-page',
-            'components/lesson-navigation-pager/lesson-navigation-pager',
             'components/copyright-line/copyright-line',
             'components/play-activity-page/play-activity-page',
             'components/playground-layout/playground-layout',
@@ -102,5 +99,5 @@ gulp.task('js', ['js:optimize'], () => {
 gulp.task('js:browserFS', () => {
    // Copy From Bower components to Dist Folder
    return gulp.src('./src/bower_modules/browserfs/dist/browserfs.min.js')
-        .pipe(gulp.dest('./dist/')); 
+        .pipe(gulp.dest('./dist/'));
 });
