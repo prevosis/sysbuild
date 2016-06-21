@@ -1,12 +1,4 @@
 <div id="layout">
-  <div id="navbar-container">
-    <div class="navbar navbar-default" role="navigation" data-bind="style: { marginTop: navbarTopMargin }">
-        <div data-bind="if: showLessonNavigation">
-            <lesson-navigation-pager params="activityData: activityData, listCssClass: 'nav navbar-nav'"></lesson-navigation-pager>
-        </div>
-    </div>
-  </div>
-
   <div id="code-container">
     <editor-pane params="editorPaneTabs: editorPaneTabs, initialTabIndex: 1"></editor-pane>
   </div>
