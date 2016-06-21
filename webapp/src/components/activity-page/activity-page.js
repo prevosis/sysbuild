@@ -3,7 +3,6 @@ import templateMarkup from 'text!./activity-page.html';
 import lessons from 'app/lessons';
 
 const activityTypeToComponentNameMap = {
-    'video': 'video-activity-page',
     'play': 'play-activity-page'
 };
 

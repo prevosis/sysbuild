@@ -45,7 +45,6 @@ class PlaygroundLayout {
             }
         });
 
-        this.createVideoSearchTab();
         this.createEditorTab(editorParams, compilerParams);
         this.createFileBrowserTab();
         this.createManPageSearchTab(openManPageCallback);
@@ -76,16 +75,6 @@ class PlaygroundLayout {
                 params: {
                     openManPage: openManPageCallback
                 }
-            }
-        });
-    }
-
-    createVideoSearchTab() {
-        this.editorPaneTabs.push({
-            title: 'Video Search',
-            closable: false,
-            component: {
-                name: 'video-search-tab'
             }
         });
     }
