@@ -1,6 +1,5 @@
 import ko from 'knockout';
 import templateMarkup from 'text!./activity-page.html';
-import lessons from 'app/lessons';
 
 const activityTypeToComponentNameMap = {
     'play': 'play-activity-page'
@@ -10,7 +9,6 @@ class ActivityPage {
     constructor(params) {
         var [chapterIdx, sectionIdx, activityIdx] = [params.chapterIdx, params.sectionIdx, params.activityIdx].map((idx) => parseInt(idx));
         this.activityComponent = ko.pureComputed(() => {
-            var activityDataObj = lessons.getActivityData(chapterIdx, sectionIdx, activityIdx)();
             if (!activityDataObj)
                 return { name: 'not-found-page', params: {} };
             return {
