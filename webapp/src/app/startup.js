@@ -27,7 +27,6 @@ ko.components.register('compiler-controls', { require: 'components/compiler-cont
 ko.components.register('editor-compiler-tab', { require: 'components/editor-compiler-tab/editor-compiler-tab' });
 ko.components.register('manpages-search-tab', { require: 'components/manpages-search-tab/manpages-search-tab' });
 ko.components.register('manpage-tab', { require: 'components/manpage-tab/manpage-tab' });
-ko.components.register('playground-doc-pane', { require: 'components/playground-doc-pane/playground-doc-pane' });
 ko.components.register('playground-term-pane', { require: 'components/playground-term-pane/playground-term-pane' });
 ko.components.register('playground-footer', { require: 'components/playground-footer/playground-footer' });
 ko.components.register('vm-state-label', { require: 'components/vm-state-label/vm-state-label' });
