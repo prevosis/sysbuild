@@ -25,7 +25,9 @@ function Terminal(nrows, ncolumns, elemId) {
     this.nrows = nrows;
     this.ncolumns = ncolumns;
 
-    var ele = document.getElementById(elemId);
+    var ele = elemId instanceof HTMLCanvasElement
+              ? document.getElementById(elemId)
+              : elemId;
     if (ele.tagName == "CANVAS") {
         this.canvas = ele;
         this.context = this.canvas.getContext("2d");

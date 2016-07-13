@@ -14,7 +14,9 @@ function Framebuffer(fbid, fps) {
 
 // Init Framebuffer if it exists
 Framebuffer.prototype.Init = function(fbid) {
-    this.fbcanvas = document.getElementById(fbid);
+    this.fbcanvas = fbid instanceof HTMLCanvasElement
+                    ? fbid
+                    : document.getElementById(fbid);
     if(!this.fbcanvas) return;
 
     this.fbctx = this.fbcanvas.getContext("2d");
