@@ -1,6 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-window.onload = () => {
-  document.write('Hello world!');
+import AppComponent from './components/AppComponent/AppComponent';
+
+function startApp() {
+  let mountPoint = document.createElement('div');
+  document.body.appendChild(mountPoint);
+  ReactDOM.render(<AppComponent />, mountPoint);
 }
+
+window.onload = startApp;
