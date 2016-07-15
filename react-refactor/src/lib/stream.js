@@ -1,5 +1,3 @@
-const noop = () => {};
-
 export class Stream {
   constructor(processChunk) {
     this.processChunk = processChunk;
