@@ -10,7 +10,7 @@ class PlaygroundLayout {
 
         this.docParams = params.docParams;
         this.vmState = params.vmParams.vmState;
-        var compilerParams = params.compilerParams;
+        const compilerParams = params.compilerParams;
         this.compilerStateParams = {
             compileStatus: compilerParams.compileStatus,
             lastGccOutput: compilerParams.lastGccOutput,
@@ -18,8 +18,8 @@ class PlaygroundLayout {
             gccWarningCount: compilerParams.gccWarningCount
         };
 
-        var editorParams = params.editorParams;
-        var openManPageCallback = this.openManPage.bind(this);
+        const editorParams = params.editorParams;
+        const openManPageCallback = this.openManPage.bind(this);
         editorParams.openManPage = openManPageCallback;
 
         this.initLayout();
@@ -30,12 +30,12 @@ class PlaygroundLayout {
         // when this component is disposed, as we want backspace to work properly
         // when the user is not in the playground.
         $(window).on('keydown.playground', (e) => {
-            var keyCode = {
+            const keyCode = {
                 backspace: 8
             };
 
             // allow backspace for inputs
-            var focused = $(':focus');
+            const focused = $(':focus');
             if (focused.is('input') || focused.is('textarea')) {
                 return true;
             }
@@ -48,7 +48,6 @@ class PlaygroundLayout {
         this.createEditorTab(editorParams, compilerParams);
         this.createFileBrowserTab();
         this.createManPageSearchTab(openManPageCallback);
-
     }
 
     createEditorTab(editorParams, compilerParams) {
@@ -92,11 +91,12 @@ class PlaygroundLayout {
 
     // Callback used by the manpages-search-tab and editor components
     openManPage(manPage) {
-        if (!manPage)
+        if (!manPage) {
             return;
+        }
 
-        var name = manPage.name,
-            section = manPage.section;
+        const name = manPage.name;
+        const section = manPage.section;
 
         this.editorPaneTabs.push({
             title: `${name} (${section})`,
@@ -109,7 +109,7 @@ class PlaygroundLayout {
             }
         });
 
-        var addedTabName = `${name} (${section})`;
+        const addedTabName = `${name} (${section})`;
         $('#editor-tabs-bar').find('span:contains("' + addedTabName + '")').click();
     }
 
@@ -117,11 +117,12 @@ class PlaygroundLayout {
         const mainNavBarHeightPx = 51;
         this.navbarTopMargin = mainNavBarHeightPx + 'px';
 
-        var navBarHeightPx = 33;
-        if (!this.showLessonNavigation)
+        let navBarHeightPx = 33;
+        if (!this.showLessonNavigation) {
             navBarHeightPx = 0;
+        }
 
-        var mainLayout = $('#layout').layout({
+        const mainLayout = $('#layout').layout({
             livePaneResizing: true,
 
             north__paneSelector: '#navbar-container',
@@ -142,11 +143,11 @@ class PlaygroundLayout {
             south__size: 29,
             south__spacing_open: 0,
 
-            onresizeall: function (layout, state) {
+            onresizeall: (layout, state) => {
                 // Make the layout responsive - close the east pane when the screen becomes too small,
                 // reopen it when the screen becomes wide again.
                 // Adapted from https://groups.google.com/forum/#!msg/jquery-ui-layout/69xyqoyqGcU/1XvjZSW9n4wJ
-                var width = state.container.outerWidth;
+                const width = state.container.outerWidth;
                 if (width <= 800 && !state.east.isClosed) {
                     layout.close('east');
                     state.east.autoClosed = true; // CUSTOM state-data
@@ -157,7 +158,7 @@ class PlaygroundLayout {
             }
         });
 
-        var ttyLayout = mainLayout.panes.east.layout({
+        const ttyLayout = mainLayout.panes.east.layout({
             livePaneResizing: true,
             spacing_open: 2,
 

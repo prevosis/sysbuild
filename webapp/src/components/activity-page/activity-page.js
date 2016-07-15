@@ -2,15 +2,18 @@ import ko from 'knockout';
 import templateMarkup from 'text!./activity-page.html';
 
 const activityTypeToComponentNameMap = {
-    'play': 'play-activity-page'
+    video: 'video-activity-page',
+    play: 'play-activity-page'
 };
 
 class ActivityPage {
     constructor(params) {
-        var [chapterIdx, sectionIdx, activityIdx] = [params.chapterIdx, params.sectionIdx, params.activityIdx].map((idx) => parseInt(idx));
+        const [chapterIdx, sectionIdx, activityIdx] = [params.chapterIdx, params.sectionIdx, params.activityIdx].map((idx) => parseInt(idx, 10));
         this.activityComponent = ko.pureComputed(() => {
-            if (!activityDataObj)
+            const activityDataObj = lessons.getActivityData(chapterIdx, sectionIdx, activityIdx)();
+            if (!activityDataObj) {
                 return { name: 'not-found-page', params: {} };
+            }
             return {
                 name: activityTypeToComponentNameMap[activityDataObj.activity.type],
                 params: {

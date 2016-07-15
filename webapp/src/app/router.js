@@ -19,8 +19,28 @@ class Router {
         // Configure Crossroads route handlers
         crossroads.addRoute('', (requestParams) => {
             // TODO: Remove redirection once home page is ready
-            //this.currentRoute(ko.utils.extend(requestParams, { page: 'home-page' }));
-            hasher.replaceHash('/VM');
+            // this.currentRoute(ko.utils.extend(requestParams, { page: 'home-page' }));
+            hasher.replaceHash('lessons');
+        });
+
+        crossroads.addRoute('about', (requestParams) => {
+            this.currentRoute(ko.utils.extend(requestParams, { page: 'about-page' }));
+        });
+
+        crossroads.addRoute('lessons', (requestParams) => {
+            this.currentRoute(ko.utils.extend(requestParams, { page: 'lessons-page' }));
+        });
+
+        crossroads.addRoute('chapter/{chapterIdx}', (requestParams) => {
+            hasher.replaceHash(`chapter/${requestParams.chapterIdx}/section/0/activity/0`);
+        });
+
+        crossroads.addRoute('chapter/{chapterIdx}/section/{sectionIdx}', (requestParams) => {
+            hasher.replaceHash(`chapter/${requestParams.chapterIdx}/section/${requestParams.sectionIdx}/activity/0`);
+        });
+
+        crossroads.addRoute('chapter/{chapterIdx}/section/{sectionIdx}/activity/{activityIdx}', (requestParams) => {
+            this.currentRoute(ko.utils.extend(requestParams, { page: 'activity-page' }));
         });
 
         crossroads.addRoute('VM', (requestParams) => {
@@ -45,6 +65,6 @@ class Router {
 }
 
 // Create and export router instance
-var routerInstance = new Router();
+const routerInstance = new Router();
 
 export default routerInstance;
