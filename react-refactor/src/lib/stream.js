@@ -1,46 +1,39 @@
+const noop = () => {};
+
 export class Stream {
-  constructor() {
-    this.chunkBuffer = [];
-    this.bufSize = 0;
-    this.pos = 0;
-    this.pendingReads = [];
+  constructor(processChunk) {
+    this.processChunk = processChunk;
+    this.chunkList = null;
+    this._tail = null;
   }
 
-  bufferChunk(chunk) {
-    this.chunkBuffer.push(chunk);
+  _newNode(chunk) {
+    return { chunk, next: null };
   }
 
-  chunkSize(chunk) { return 1; }
-  partialChunk(chunk, size) { return chunk; }
+  empty() {
+    return !this.chunkList;
+  }
 
-  write(chunks, size=null) {
-    let sizeWritten = 0;
+  write(chunk) {
+    let newNode = this._newNode(chunk);
 
-    if (size === null) {
-      for (c of (Array.isArray(chunks) ? chunks : [chunks])) {
-        this.bufferChunk(c);
-        sizeWritten += this.chunkSize(c);
-      }
+    if (!this.empty()) {
+      this._tail = this._tail.next = newNode;
     } else {
-      for (c of (Array.isArray(chunks) ? chunks : [chunks])) {
-        if ((sizeWritten + this.chunkSize(c)) <= size) {
-          this.bufferChunk(c);
-          sizeWritten += this.chunkSize(c);
-        } else {
-          let remainingSize = size - sizeWritten;
-          if (remainingSize === 0) break;
-          this.bufferChunk(c.substr(0, remainingSize));
-          sizeWritten += remainingSize;
-          break;
-        }
-      }
+      this.chunkList = this._tail = newNode;
     }
 
-    this.bufSize += sizeWritten;
-    return sizeWritten;
+    return this;
   }
 
-  read(size) {
-
+  advance(n) {
+    let i;
+    for (i = 0; this.chunkList && (i < n); ++i) {
+      this.processChunk = this.processChunk(this.chunkList.chunk)
+      this.chunkList = this.chunkList.next;
+    }
+     
+    return i;
   }
 }
