@@ -1,31 +1,35 @@
-export class StringStream {
+export class Stream {
   constructor() {
     this.chunkBuffer = [];
     this.bufSize = 0;
     this.pos = 0;
+    this.pendingReads = [];
   }
 
-  _bufferChunk(chunk) {
+  bufferChunk(chunk) {
     this.chunkBuffer.push(chunk);
   }
+
+  chunkSize(chunk) { return 1; }
+  partialChunk(chunk, size) { return chunk; }
 
   write(chunks, size=null) {
     let sizeWritten = 0;
 
     if (size === null) {
       for (c of (Array.isArray(chunks) ? chunks : [chunks])) {
-        this._bufferChunk(c);
-        sizeWritten += c.length;
+        this.bufferChunk(c);
+        sizeWritten += this.chunkSize(c);
       }
     } else {
       for (c of (Array.isArray(chunks) ? chunks : [chunks])) {
-        if ((sizeWritten + c.length) <= size) {
-          this._bufferChunk(c);
-          sizeWritten += c.length;
+        if ((sizeWritten + this.chunkSize(c)) <= size) {
+          this.bufferChunk(c);
+          sizeWritten += this.chunkSize(c);
         } else {
           let remainingSize = size - sizeWritten;
-          if (size === 0) break;
-          this._bufferChunk(c.substr(0, remainingSize));
+          if (remainingSize === 0) break;
+          this.bufferChunk(c.substr(0, remainingSize));
           sizeWritten += remainingSize;
           break;
         }
@@ -37,6 +41,6 @@ export class StringStream {
   }
 
   read(size) {
-    
+
   }
 }
