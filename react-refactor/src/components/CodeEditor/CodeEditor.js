@@ -5,13 +5,18 @@ import brace from 'brace';
 import 'brace/mode/c_cpp';
 import 'brace/theme/monokai';
 
+import CompilerControls from './Compiler-Controls/Compiler-Controls';
+
+console.log(CompilerControls);
+
 export default class CodeEditor extends React.Component {
   render() {
     return (
-      <div>
+      <div id="editor">
         <AceEditor
           mode="c_cpp"
-          theme="monokai"/>
+          theme="monokai" />
+        <CompilerControls />
       </div>
     )
   }
