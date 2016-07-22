@@ -13,9 +13,7 @@ export default class CompilerControls extends React.Component {
 
   render() {
     return (
-      <form className="compiler-controls" onSubmit={this.handleSubmit}>
-        <input type="submit" value="Submit" />
-      </form>
+      <button className="compiler-controls" onClick={this.handleSubmit}>Submit</button>
     );
   }
 }
