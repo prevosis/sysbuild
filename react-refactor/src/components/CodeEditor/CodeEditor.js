@@ -5,7 +5,7 @@ import brace from 'brace';
 import 'brace/mode/c_cpp';
 import 'brace/theme/monokai';
 
-import CompilerControls from './Compiler-Controls/Compiler-Controls';
+import CompilerControls from '../CompilerControls/CompilerControls';
 
 export default class CodeEditor extends React.Component {
   constructor(props) {
