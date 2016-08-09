@@ -25,9 +25,12 @@ function Terminal(nrows, ncolumns, elemId) {
     this.nrows = nrows;
     this.ncolumns = ncolumns;
 
-    var ele = elemId instanceof HTMLCanvasElement
-              ? document.getElementById(elemId)
-              : elemId;
+    // var ele = elemId instanceof HTMLCanvasElement
+    //           ? document.getElementById(elemId)
+    //           : elemId;
+
+    var ele = document.getElementById(elemId);
+
     if (ele.tagName == "CANVAS") {
         this.canvas = ele;
         this.context = this.canvas.getContext("2d");
@@ -179,7 +182,7 @@ Terminal.prototype.UpdateRowCanvas = function(row) {
 
         if (c != cnew) {
             var x = (column - n) << 3;
-            this.context.fillStyle = Colors[(c >>> 8) & 0x1F]; 
+            this.context.fillStyle = Colors[(c >>> 8) & 0x1F];
             this.context.fillRect(x, y, n*8, 16);
             this.context.fillStyle = Colors[c & 0x1F];
             for(var i=0; i<n; i++) {
@@ -193,7 +196,7 @@ Terminal.prototype.UpdateRowCanvas = function(row) {
     }
 
     var x = (column - n) << 3;
-    this.context.fillStyle = Colors[(c >>> 8) & 0x1F]; 
+    this.context.fillStyle = Colors[(c >>> 8) & 0x1F];
     this.context.fillRect(x, y, n*8, 16);
     this.context.fillStyle = Colors[c & 0x1F];
     for(var i=0; i<n; i++) {
@@ -208,22 +211,22 @@ Terminal.prototype.GetSpan = function(c, line, idx, n) {
         switch (line[idx + i])
         {
         case 0x20:
-            html += "&nbsp;"; 
+            html += "&nbsp;";
             break;
 
         case 0x26: // '&'
-            html += "&amp;"; 
+            html += "&amp;";
             break;
 
         case 0x3C: // '<'
-            html += "&lt;"; 
+            html += "&lt;";
             break;
 
         case 0x3E: // '>'
-            html += "&gt;"; 
+            html += "&gt;";
             break;
 
-        default:        
+        default:
             html += String.fromCharCode(line[idx + i]);
             break;
         }
@@ -482,15 +485,15 @@ Terminal.prototype.ChangeMode = function(numbers, question, onoff) {
                 this.cursortype = onoff;
                 break;
 
-            case 1000: // 
+            case 1000: //
                 break;
 
-            case 1006: // 
+            case 1006: //
                 break;
 
-            case 1005: // 
+            case 1005: //
                 break;
-            
+
             default:
                 message.Warning("Mode term parameter " + this.escapestring + " unknown");
                 break;
@@ -503,13 +506,13 @@ Terminal.prototype.ChangeCursorType = function(numbers, question) {
         message.Warning("cursor parameter unknown");
         return;
     }
- 
+
     for(var i=0; i<numbers.length; i++) {
         switch(numbers[i]) {
             case 0:
                 //this.cursorvisible = false;
                 //this.cursortype = 0;
-                break; 
+                break;
             case 1:
                 //this.cursortype = 1;
                 break;
@@ -644,7 +647,7 @@ Terminal.prototype.HandleEscapeSequence = function() {
             count = numbers.length ? numbers[0] : 1;
             if (!numbers.length) {
                 this.DeleteArea(this.cursory, this.cursorx, this.cursory, this.ncolumns - 1);
-            } else 
+            } else
             if (numbers[0] == 1) {
                 this.DeleteArea(this.cursory, 0., this.cursory, this.cursorx);
             } else
@@ -710,7 +713,7 @@ Terminal.prototype.HandleEscapeSequence = function() {
             }
             return;
 
-        case 'X': // erase only number of characters in current line    
+        case 'X': // erase only number of characters in current line
             count = numbers.length ? numbers[0] : 1;
             if (count == 0) count = 1;
             for (var j = 0; j < count; j++) {
@@ -718,7 +721,7 @@ Terminal.prototype.HandleEscapeSequence = function() {
                 this.color[this.brows + this.cursory][this.cursorx+j] = this.GetColor();
             }
             this.PrepareUpdateRow(this.cursory);
-            break;    
+            break;
 
         default:
             message.Warning("Escape sequence unknown:'" + this.escapestring + "'");
@@ -800,7 +803,7 @@ Terminal.prototype.PutChar = function(c) {
                 this.cursorx = 0;
             }
             this.screen[this.brows + this.cursory][this.cursorx] = 0x20;
-            this.color[this.brows + this.cursory][this.cursorx] = this.attr_color;  
+            this.color[this.brows + this.cursory][this.cursorx] = this.attr_color;
             this.cursorx++;
         } while(spaces--);
         this.PrepareUpdateRow(this.cursory);
